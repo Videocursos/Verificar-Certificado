@@ -3,92 +3,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificar Certificado</title>
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #e74c3c;
+            --background-color: #f0f0f0;
+            --text-color: #333;
+            --header-color: #333;
+        }
+
         body, html {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
+
         .header {
-            background-color: #333;
+            background-color: var(--header-color);
             color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            max-width: 200px;
+            height: 40px;
+        }
+
         .logo {
-            height: 30px;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: pointer;
         }
+
         .header-right {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
         }
+
+        .search-bar {
+            padding: 8px;
+            margin: 5px;
+            border: none;
+            border-radius: 3px;
+            flex-grow: 1;
+            min-width: 150px;
+        }
+
         .header-button {
-            background-color: #e74c3c;
+            background-color: var(--secondary-color);
             color: white;
             border: none;
-            padding: 5px 10px;
-            margin-left: 10px;
+            padding: 8px 15px;
+            margin: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 3px;
         }
-        .search-bar {
-            padding: 5px;
-            margin-right: 10px;
+
+        .header-button:hover {
+            background-color: #c0392b;
         }
+
         .main-content {
             max-width: 800px;
             margin: 20px auto;
             background-color: white;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
         }
+
         .certificate-image {
             width: 100%;
             max-width: 600px;
             display: block;
             margin: 20px auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
         }
-        .verify-button {
-            background-color: #3498db;
+
+        .certificate-image:hover {
+            transform: scale(1.02);
+        }
+
+        .verify-button, .download-button {
+            background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
             display: block;
             margin: 20px auto;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            text-align: center;
+            text-decoration: none;
         }
+
+        .verify-button:hover, .download-button:hover {
+            background-color: #2980b9;
+        }
+
         .certificate-details {
             margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
         }
+
         .certificate-details p {
-            margin: 5px 0;
+            margin: 10px 0;
         }
+
         .note {
-            color: red;
+            color: var(--secondary-color);
             font-size: 0.9em;
             margin-top: 20px;
+            padding: 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
         }
-        @media (max-width: 600px) {
+
+        @media (max-width: 768px) {
             .header {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
             }
+
+            .logo-container {
+                margin: 0 auto 10px;
+            }
+
             .header-right {
                 margin-top: 10px;
+                justify-content: space-between;
             }
+
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+
             .main-content {
+                padding: 15px;
+                margin: 10px;
+            }
+
+            .verify-button, .download-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-button {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+
+            .certificate-details {
                 padding: 10px;
+            }
+
+            .note {
+                font-size: 0.8em;
             }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <img src="https://videocursos.co/wp-content/uploads/2018/09/cropped-favicon-3.png" alt="Public Careers Logo" class="logo">
+        <div class="logo-container">
+            <img src="https://videocursos.co/wp-content/uploads/2018/09/cropped-favicon-3.png" alt="Public Careers Logo" class="logo" id="logoImage">
+        </div>
         <div class="header-right">
             <input type="text" placeholder="Buscar cursos..." class="search-bar">
-            <button class="header-button">Cursos</button>
+            <button class="header-button" id="coursesButton">Cursos</button>
             <button class="header-button">🛒</button>
             <button class="header-button">☰</button>
         </div>
@@ -100,22 +201,71 @@
         
         <img src="Verificar-Certificado/imagenes/certificado.png" alt="Certificado de finalización del Curso de Marketing de Afiliados" class="certificate-image">
         
-        <button class="verify-button">Verificar Certificado</button>
+        <button class="verify-button" id="verifyButton">Verificar Certificado</button>
         
         <div class="certificate-details">
-            <p><strong>Fecha:</strong> septiembre 18, 2024</p>
-            <p><strong>Nombre del Curso:</strong> Curso de Filmora X</p>
+            <p><strong>Fecha:</strong> <span id="certDate">septiembre 18, 2024</span></p>
+            <p><strong>Nombre del Curso:</strong> <span id="courseName">Curso de Filmora X</span></p>
         </div>
         
-        <button class="verify-button">Descargar PDF</button>
+        <a href="Verificar-Certificado/imagenes/certificado.pdf" download class="download-button" id="downloadButton">Descargar PDF</a>
         
         <p class="note">NOTA: Cuando hayas obtenido el certificado, este aparecerá disponible en tu cuenta de videocursos.com con tus nombres y apellidos y vinculado al curso que tienes asignado.</p>
     </main>
 
     <script>
-        // Add any necessary JavaScript here
-        document.querySelector('.verify-button').addEventListener('click', function() {
-            alert('Certificado verificado correctamente.');
+        document.addEventListener('DOMContentLoaded', function() {
+            const verifyButton = document.getElementById('verifyButton');
+            const downloadButton = document.getElementById('downloadButton');
+            const certDate = document.getElementById('certDate');
+            const courseName = document.getElementById('courseName');
+            const logoImage = document.getElementById('logoImage');
+            const coursesButton = document.getElementById('coursesButton');
+
+            logoImage.addEventListener('click', function() {
+                window.location.href = 'https://videocursos.co/';
+            });
+
+            coursesButton.addEventListener('click', function() {
+                window.location.href = 'https://videocursos.co/todos-los-cursos/';
+            });
+
+            verifyButton.addEventListener('click', function() {
+                verifyButton.textContent = 'Verificando...';
+                verifyButton.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Certificado verificado correctamente.');
+                    verifyButton.textContent = 'Verificado ✓';
+                    verifyButton.style.backgroundColor = '#27ae60';
+                }, 2000);
+            });
+
+            downloadButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Previene la descarga inmediata
+                downloadButton.textContent = 'Descargando...';
+                downloadButton.style.pointerEvents = 'none'; // Deshabilita el botón temporalmente
+                
+                setTimeout(() => {
+                    downloadButton.textContent = 'Descargado ✓';
+                    downloadButton.style.backgroundColor = '#27ae60';
+                    
+                    // Inicia la descarga después de un breve retraso
+                    setTimeout(() => {
+                        window.location.href = downloadButton.getAttribute('href');
+                    }, 500);
+                }, 2000);
+            });
+
+            certDate.addEventListener('click', function() {
+                const newDate = prompt('Ingrese la nueva fecha:', certDate.textContent);
+                if (newDate) certDate.textContent = newDate;
+            });
+
+            courseName.addEventListener('click', function() {
+                const newName = prompt('Ingrese el nuevo nombre del curso:', courseName.textContent);
+                if (newName) courseName.textContent = newName;
+            });
         });
     </script>
 </body>

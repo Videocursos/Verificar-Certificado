@@ -1,0 +1,122 @@
+<html><head><base href="/" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Certificado</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            height: 30px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        .header-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .search-bar {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .certificate-image {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 20px auto;
+        }
+        .verify-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        .certificate-details {
+            margin-top: 20px;
+        }
+        .certificate-details p {
+            margin: 5px 0;
+        }
+        .note {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-right {
+                margin-top: 10px;
+            }
+            .main-content {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="https://videocursos.co/wp-content/uploads/2018/09/cropped-favicon-3.png" alt="Public Careers Logo" class="logo">
+        <div class="header-right">
+            <input type="text" placeholder="Buscar cursos..." class="search-bar">
+            <button class="header-button">Cursos</button>
+            <button class="header-button">🛒</button>
+            <button class="header-button">☰</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h2>Verificar Certificado</h2>
+        <p>ID: 7530780216-1491392761205969595</p>
+        
+        <img src="C:\Users\PC\Desktop\pagina\imagenes\certificado.png" alt="Certificado de finalización del Curso de Marketing de Afiliados" class="certificate-image">
+        
+        <button class="verify-button">Verificar Certificado</button>
+        
+        <div class="certificate-details">
+            <p><strong>Fecha:</strong> septiembre 18, 2024</p>
+            <p><strong>Nombre del Curso:</strong> Curso de Filmora X</p>
+        </div>
+        
+        <button class="verify-button">Descargar PDF</button>
+        
+        <p class="note">NOTA: Cuando hayas obtenido el certificado, este aparecerá disponible en tu cuenta de videocursos.com con tus nombres y apellidos y vinculado al curso que tienes asignado.</p>
+    </main>
+
+    <script>
+        // Add any necessary JavaScript here
+        document.querySelector('.verify-button').addEventListener('click', function() {
+            alert('Certificado verificado correctamente.');
+        });
+    </script>
+</body>
+</html>
